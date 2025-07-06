@@ -3,37 +3,297 @@
 \usepackage{zhslides}
 \input{defs.tex}
 
-\title{Title}
+\title{Mathematical Writing and Typesetting in \LaTeX}
 \author{Hao Zhu}
 \institute{Department of Computer Science\\University of Freiburg}
-\date{\today}
+\date{July 11, 2025}
 
 \begin{document}
 \begin{frame}[plain]
     \titlepage{}
 \end{frame}
 
-\section{First section}
 \begin{frame}
-    \frametitle{Frist section}
+    \frametitle{About this talk}
+
+    \begin{itemize}\itemsep=12pt
+        \item guidelines for mathematical writing and typesetting in \LaTeX
+        \item useful in general for writing papers; can be very useful if math statements and proofs are included
+        \item list some geneal rules that I am trying to follow, specific to optimization field
+        \item accompanied with a note which is more formal than the slides
+        \item covers both the \LaTeX\ source as well as the output, \ie, the PDF, which is intended to be read alongside its own source
+        \item all material available at \url{https://github.com/nrgrp/math_latex_slides}
+        \item[] 
+        \item the material was originally developed by Boyd~\etal~\cite{boyd2014latex} as guidelines for a course report
+    \end{itemize}
+\end{frame}
+
+\section{General rules for mathematical typesetting}
+\begin{frame}
+    \frametitle{Some useful references}
+
+    some famous guidelines for mathematical writing:
+    \begin{itemize}\itemsep=6pt
+        \item \cite{Halmos:1970}: Halmos, \emph{How to write mathematics}
+        \item \cite{Knuth:1989}: Knuth~\etal, \emph{Mathematical Writing}
+    \end{itemize}
+    \vspace*{10pt}
+
+    many respectable books follow similar rules, like
+    \begin{itemize}\itemsep=6pt
+        \item \cite{boyd2004convex}: Boyd and Vandenberghe, \emph{Convex Optimization}
+        \item \cite{Cover:1991}: Cover and Thomas, \emph{Elements of Information Theory}
+        \item \cite{Hastie:2001}: Hastie~\etal, \emph{The Elements of Statistical Learning}
+        \item \cite{Sipser:2001}: Sipser, \emph{Introduction to the Theory of Computation}
+        \item \cite{Cormen:2001}: Cormen~\etal, \emph{Introduction to Algorithms}
+        \item \cite{Rudin:1976}: Rudin, \emph{Principles of Mathematical Analysis}
+        \item \cite{Evans:2010}: Evans, \emph{Partial Differential Equations}
+        \item \cite{Knuth:1973}: Knuth, \emph{The Art of Computer Programming, Volume I: Fundamental Algorithms}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Precision of mathmatical statements}
+
+    \begin{itemize}\itemsep=12pt
+        \item the sentence
+            \begin{quote}
+                ``Let $x^\star$ be the solution to the optimization problem.''
+            \end{quote}
+            implicitly asserts that the solution is unique
+        \item if the solution is not unique or need not be unique, write
+            \begin{quote}
+                ``Let $x^\star$ be a solution to the optimization problem.''
+            \end{quote}
+        \item[]
+        \item similarly, do not refer to ``solving'' an expression, as this is meaningless
+        \item we can solve an equation or set of equations, evaluate an expression or function, or check that an equation or inequality holds
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Punctuation in equations}
+
+    \begin{itemize}\itemsep=10pt
+        \item an equation is part of a sentence, so we may need to include a comma or a period at the end of an equation, whether or not inline or display math style is used
+        \item an example for using a comma:
+            \begin{quote}
+                We next discuss how to solve the problem
+                \[
+                    \begin{array}{ll}
+                        \mbox{minimize} & (1/2)\norm{Ax - b}_2^2,
+                    \end{array}
+                \]
+                where $x \in \reals^n$ is the optimization variable.
+            \end{quote}
+        \item an example for using a period:
+            \begin{quote}
+                The objective function $f \colon \reals^n \to \reals$ is given by
+                \[
+                    f(x) = (1/2)\norm{Ax - b}_2^2,\quad x \in \reals^n.
+                \]
+            \end{quote}
+        \item an example where no punctuation is needed:
+            \begin{quote}
+                The set
+                \[
+                    E = \{q \in \reals \mid q > 0,\ q^2 < 2\}
+                \]
+                has a supremum in $\reals$.
+            \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Symbols in sentences}
+
+    \begin{itemize}\itemsep=10pt
+        \item don't start a sentence with a symbol since this hurts readability:
+            \begin{quote}
+                Bad: $f$ is smooth.\\
+                Good: The function $f$ is smooth.
+
+                Bad: $x^n - a$ has $n$ distinct zeros. \\
+                Good: The polynomial $x^n - a$ has $n$ distinct zeros.
+            \end{quote}
+        \item use words to separate symbols in different formulas if it might confuse the reader visually or in the actual meaning of the sentence:
+            \begin{quote}
+                Bad: The sequences $x_1, x_2, \dots$, $y_1, y_2, \dots$ are Cauchy. \\
+                OK: The sequences $x_1, x_2, \dots,$ and $y_1, y_2, \dots,$ are Cauchy. \\
+                Good: The sequences $(x_i)$ and $(y_i)$ are Cauchy.
+
+                OK: The image of $S$ under $f$, $f(S) = \{ x \mid x \in S \}$, is convex. \\
+                Good: The image of $S$ under $f$, given by $f(S) = \{ x \mid x \in S \}$, is convex.
+            \end{quote}
+        \item do not insert superfluous words if the meaning is clear:
+            \begin{quote}
+                Good: Consider the function $f + g + h$, where $f \colon \reals^n \to \reals$, $g \colon \reals^m \to \reals$, and $h \colon \reals^p \to \symms^n$ are closed proper convex.
+            \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{English in math mode}
+
+    \begin{itemize}\itemsep=12pt
+        \item mathematical symbols should be typeset in math mode: write $Ax=b$, not \textrm{Ax=b}
+        \item subscripts or superscripts that derive from English (or any human language) should not be italicized, for example, write $f_\mathrm{best}$, not $f_{best}$
+        \item the exception is subscripts based on a single letter: refer to a point that is the center of some set as $x_c$, not $x_{\mathrm{c}}$
+        \item similarly, use commands for special functions: use $\sin(x)$, $\log(x)$, and $\exp(x)$, not $sin(x)$, $log(x)$, or $exp(x)$
+        \item[] 
+        \item a really heinous example would be the following:
+            \begin{quote}
+                Consider the problem
+                \[
+                    \begin{array}{ll}
+                        minimize & f(Ax - b) \\
+                    \end{array}
+                \]
+                where x is the optimization variable and A and b are problem data.
+            \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Spacing}
+
+    \begin{itemize}\itemsep=10pt
+        \item a blank line ends a paragraph, so we shouldn't leave a blank line between an equation and the following text unless intending the equation to end the paragraph
+        \item for example, in the \LaTeX\ source, write:
+            \begin{quote}
+                \begin{verbatim}
+The image of $S$ under $f$,
+\[
+f(S) = \{ f(x) \mid x \in S \},
+\]
+is convex.
+                \end{verbatim}
+            \end{quote}\vspace*{-\baselineskip}
+            inserting extra blank lines before \verb+\[+ or after \verb+\]+ will result in bad typesetting
+        \item the following is fine, since a new paragraph is called for:
+            \begin{quote}
+                \begin{verbatim}
+The image of $S$ under $f$ is defined as
+\[
+f(S) = \{ f(x) \mid x \in S \}.
+\]
+
+We now turn to a different topic.
+                \end{verbatim}
+            \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Use the right commands}
+
+    there are certain special commands in \LaTeX\ for notation that you otherwise might attempt to write in an ad-hoc manner, \eg,
+    \begin{itemize}\itemsep=12pt
+        \item norms: 
+            \begin{quote}
+                Bad: \verb+$||x||$+ ($\implies$ $||x||$)\\
+                Good: \verb+$\|x\|$+ ($\implies$ $\|x\|$)
+            \end{quote}
+        \item set-builder and conditional probability notation:
+            \begin{quote}
+                Bad: \verb+$|$+ ($\implies$ $\{x \in \reals | x \geq 0 \}$)\\
+                Good: \verb+$\mid$+ ($\implies$ $\{ x \in \reals \mid x \geq 0 \}$)
+            \end{quote}
+        \item functions:
+            \begin{quote}
+                Bad: \verb+$:$+ ($\implies$ $f: \reals^n \to \reals$)\\
+                Good: \verb+$\colon$+ ($\implies$ $f \colon \reals^n \to \reals$)
+            \end{quote}
+        \item use \verb+\ldots+ (lower dots, $\ldots$) when the dots are surrounded by commas and \verb+\cdots+ (center dots, $\cdots$) when surrounded by other objects that have full height, as in
+        \[
+            x_1, x_2, \ldots, x_n\quad \mbox{and}\quad x_1 + x_2 + \cdots + x_n
+        \]
+    \end{itemize}
+\end{frame}
+
+\section{Mathematical notation and jargon}
+\begin{frame}
+    \frametitle{General guidelines}
+
     
-\end{frame}
-
-\section{Second section}
-\begin{frame}
-    \frametitle{Second section}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Citation}
-    \framesubtitle{(Boyd and Vandenberghe~\cite{boyd2004convex})}
+    \frametitle{Symbols for some specific sets}
+
+    
 
 \end{frame}
 
-\begin{frame}[plain]{Reference}
-    \footnotesize
-    \nocite{*}
+\begin{frame}
+    \frametitle{Writing optimization problems}
+
+    
+
+\end{frame}
+
+\section{Miscellaneous comments}
+\begin{frame}[fragile]
+    \frametitle{Sentence-ending periods}
+
+    \begin{itemize}\itemsep=12pt
+        \item \LaTeX\ assumes all periods followed by a space are sentence-ending periods
+        \item tell it otherwise when that is not the case
+        \item for example:
+            \begin{quote}
+                Bad: \verb+Let $x_1,x_2,\ldots ,x_n$ be i.i.d. normal random variables.+\\
+                \quad $\implies$ Let $x_1,x_2,\ldots ,x_n$ be i.i.d. normal random variables.\\
+                Good: \verb+Let $x_1,x_2,\ldots ,x_n$ be i.i.d.\ normal random variables.+\\
+                \quad $\implies$ Let $x_1,x_2,\ldots ,x_n$ be i.i.d.\ normal random variables.
+            \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Commas}
+
+    know when commas should appear inside or outside math environments:
+    \begin{quote}
+        Bad: \verb+Note that $a,b,$ and $c$ are nonnegative.+\\
+        \quad $\implies$ Note that $a,b,$ and $c$ are nonnegative.\\
+        Good: \verb+Note that $a$, $b$, and $c$ are nonnegative.+\\
+        \quad $\implies$ Note that $a$, $b$, and $c$ are nonnegative.
+
+        Bad: \verb+We conclude that $x_1$, $x_2$, \dots, $x_n$ are decreasing.+\\
+        \quad $\implies$ We conclude that $x_1$, $x_2$, \dots, $x_n$ are decreasing.\\
+        Good: \verb+We conclude that $x_1, x_2, \ldots, x_n$ is decreasing.+\\
+        \quad $\implies$ We conclude that $x_1, x_2, \ldots, x_n$ is decreasing.
+    \end{quote}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dialects}
+
+    \begin{itemize}\itemsep=12pt
+        \item be aware when writing in mathematical dialect, \eg, in statistics, machine learning, signal processing, control, vision, information theory, and so on
+        \item unless the intended audience is only from this one field, try to avoid using dialect
+        \item try to write in such a way that a general reader with a good understanding of basic mathematics can understand what we are saying
+        \item[] 
+        \item use standard variable notation unless otherwise needed: $x$ for variables, $A$ for matrices, and so on
+        \item a bad example would be to use
+            \[
+                \Xi \beta = \chi
+            \]
+            for a system of linear equations, unless it is really needed
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{No rule is absolute}
+
+    \begin{itemize}
+        \item break any of these rules rather than write anything nasty
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[plain,allowframebreaks]{Reference}
     \bibliography{refs}
 \end{frame}
 \end{document}

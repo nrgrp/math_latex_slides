@@ -1,10 +1,13 @@
 \sectionoutlineon  % comment out to hide outline before each section
 \footlineon  % comment out to hide footline
 % \frametitleleft  % comment out to center frame title
-% \onelinebib  % uncomment to put bibliography entries in one line
+\onelinebib  % uncomment to put bibliography entries in one line
 
 \usepackage{tikz}
 \usepackage{mathtools}
+
+% quote environment
+\renewenvironment{quote}{\list{}{\parsep=5pt}\item\rmfamily}{\endlist}
 
 % commands
 \newcommand{\ones}{{\bf 1{}}}  % vector with all components one
