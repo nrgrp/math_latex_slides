@@ -213,24 +213,156 @@ We now turn to a different topic.
 
 \section{Mathematical notation and jargon}
 \begin{frame}
-    \frametitle{General guidelines}
+    \frametitle{General guidelines (noncontroversial)}
 
-    
+    \begin{itemize}\itemsep=10pt
+        \item don't use the same notation for two different things, \eg, don't say ``$A_j$ for $1 \leq j \leq n$'' in one place and ``$A_i$ for $i=1,\ldots,n$'' in another
+        \item it can be useful to choose names for indices so, \eg, $i$ always varies from $1$ to $m$ and $j$ always varies from $1$ to $n$
+        \item define all symbols before or near to where you use them
+        \item a symbol like $f$ refers to a function, while $f(x)$ refers to a function evaluated at a given point
+            \begin{itemize}
+                \item avoid sloppy writing like ``The function $f(x)$ is convex.''
+                \item `anonymous' functions defined inline are an exception to this rule, as in ``The function $x^2 \cos x$ is a counterexample.''
+            \end{itemize}
+        \item try to use mnemonic notation, so $x_c$ for a center point, $c$ for a cost vector, $S$ for a generic set, $C$ for a convex set, $B$ for a ball, and so on
+        \item don't use symbols like $\forall$, $\exists$, and $\implies$; use the corresponding words; these symbols are usually appropriate only in formal logic
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]
+    \vspace*{1cm}
+
+    \begin{itemize}\itemsep=10pt
+        \item don't assign symbols to concepts that you never refer to, or can easily refer to without the symbol:
+            \begin{quote}
+                Bad: Let $X$ be a compact subset of a space $Y$. 
+                If $f$ is a continuous real-valued function over $X$, it has a minimum over $X$. \\
+                Good: A continuous real-valued function has a minimum over a compact set.
+            \end{quote}
+        similarly, do not say
+        \begin{quote}
+            ``The solution $x^\star$ is unique.''
+        \end{quote}
+        if we never need to refer to $x^\star$ again
+        \item do not write `arg min' (and `arg max') since `argmin' is a single mathematical operator (which is different from $\liminf$ and $\limsup$)
+            \begin{quote}
+                Very Bad: Let $\displaystyle x = \text{arg} \min_u \left(f(u) + \frac{1}{2}\norm{u - z}_2^2\right)$.\\
+                Bad: Let $\displaystyle x = \mathop{\text{arg min}}_u \left(f(u) + \frac{1}{2}\norm{u - z}_2^2\right)$.\\
+                Good: Let $\displaystyle x = \mathop{\rm argmin}_u \left(f(u) + \frac{1}{2}\norm{u - z}_2^2\right)$.
+            \end{quote}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Symbols for some specific sets (controversial)}
+
+    \begin{itemize}\itemsep=10pt
+        \item it is common in analysis textbooks to use the bold face capital letters to represent some specific sets, \eg,
+            \begin{itemize}
+                \item $\nats$: the set of natural numbers
+                \item $\rats$: the set of rational numbers
+                \item $\ints$: the set of integers
+                \item $\reals$: the set of real numbers
+                \item $\symms^n$: the set of $n \times n$ symmetric matrices
+            \end{itemize}
+            the corresponding \LaTeX\ macro is \verb+\mathbf{}+ (`\texttt{bf}' stands for \emph{bold face})
+        \item recent years, people start to accept the blackboard bold face capital letters instead, \eg, $\mathbb{N}$, $\mathbb{Q}$, $\mathbb{Z}$, $\mathbb{R}$, $\mathbb{S}^n$; the corresponding \LaTeX\ macro is \verb+\mathbb{}+ (`\texttt{bb}' stands for \emph{blackboard bold})
+        \item now we can choose to use either of them are as long as they are consistent in the same document; a bad example would be the following
+            \begin{quote}
+                Bad: The set
+                \[
+                    E = \{q \in \mathbb{Q} \mid q > 0,\ q^2 < 2\}
+                \]
+                has no supremum in $\mathbb{Q}$, but has a supremum in $\reals$.
+            \end{quote}
+    \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Symbols for some specific sets}
+    \frametitle{Writing optimization problems (controversial)}
 
-    
-
+    Rockafellar wrote optimization problems around 70s in his famous \emph{Convex Analysis} book~\cite{rockafellar1970convex} as follows:
+    \begin{quote}
+        Consider the problem
+        \begin{equation}\label{prob:opt}
+            \begin{array}{ll}
+                \mbox{minimize}   & (1/2)\norm{Ax-b}_2^2 + \lambda \norm{x}_1 \\
+                \mbox{subject to} & 0 \preceq x \preceq \mathbf{1} \\
+                & \norm{x}_2 \leq 1,
+            \end{array}
+        \end{equation}
+        where $x \in \reals^n$ is the optimization variable, and $A \in \reals^{m \times n}$, $b \in \reals^m$, and $\lambda > 0$ are problem data.
+    \end{quote}
+    \begin{itemize}\itemsep=12pt
+        \item the words `minimize' and `subject to' are considered as key \emph{words} for instantiating an optimization problem
+        \item it is always important to state which symbols refer to variables and which to problem data
+    \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Writing optimization problems}
+\begin{frame}[t]
+    \vspace*{1cm}
 
-    
+    sometimes for saving space, the problem (\ref{prob:opt}) can be abbreviated as follows:
+    \begin{quote}
+        Consider the problem
+        \begin{equation}\label{prob:opt_min}
+            \begin{array}{ll}
+                \mbox{min.}   & (1/2)\norm{Ax-b}_2^2 + \lambda \norm{x}_1 \\
+                \mbox{s.t.} & 0 \preceq x \preceq \mathbf{1}\\
+                & \norm{x}_2 \leq 1,
+            \end{array}
+        \end{equation}
+        where $x \in \reals^n$ is the optimization variable, and $A \in \reals^{m \times n}$, $b \in \reals^m$, and $\lambda > 0$ are problem data.
+    \end{quote}
+    \begin{itemize}
+        \item note the period after `min', which says that `min.' is the shorthand for `minimize', instead of the $\min$ operator which is \emph{only} defined for a finite set as
+            \[
+                \min \{x_1, \ldots, x_n\} = x_k \ \mbox{such that}\ x_k \leq x_i\ \mbox{for all $i = 1, \ldots, n$}
+            \]
+    \end{itemize}
+    \vspace*{10pt}
 
+    more recently, people often integrate the sentence for specifying the variable and data into the definition of the problem, \eg, for the problem (\ref{prob:opt}) and (\ref{prob:opt_min}):
+    \begin{quote}
+        Consider the problems
+        \[
+            \begin{array}{ll}
+                \underset{x \in \reals^n}{\mbox{minimize}}   & (1/2)\norm{Ax-b}_2^2 + \lambda \norm{x}_1 \\
+                \mbox{subject to} & 0 \preceq x \preceq \mathbf{1} \\
+                & \norm{x}_2 \leq 1
+            \end{array}\quad \mbox{and}\quad
+            \begin{array}{ll}
+                \underset{x \in \reals^n}{\mbox{min.}}   & (1/2)\norm{Ax-b}_2^2 + \lambda \norm{x}_1 \\
+                \mbox{s.t.} & 0 \preceq x \preceq \mathbf{1}\\
+                & \norm{x}_2 \leq 1.
+            \end{array}
+        \]
+    \end{quote}
+\end{frame}
+
+\begin{frame}[t]
+    \vspace*{1cm}
+
+    while avoiding the period after `min.' for writing optimization problems is extremely widely accepted by people in various fields, I personally consider it to be sloppy math:
+        \begin{quote}
+        Let $f, g \colon \reals^n \to \reals$, and consider the problem
+        \[
+            \begin{array}{ll}
+                \underset{x \in \reals^n}{\min}   & \min \{f(x), g(x)\} \\
+                \mbox{s.t.} & 0 \preceq x \preceq \mathbf{1}.
+            \end{array}
+        \]
+    \end{quote}
+    \begin{itemize}\itemsep=12pt
+        \item in the above example, two different meanings are assigned to the three ASCII letters `min':
+            \begin{itemize}\itemsep=6pt
+                \item the first `min' is the key word for instantiating a minimization problem
+                \item the second `min' is the operator of taking the smallest element of a finite set
+            \end{itemize}
+        \item the \LaTeX\ package \texttt{optidef} can be very useful in writing optimization problems in this style, especially when handling lots of constraints
+    \end{itemize}
 \end{frame}
 
 \section{Miscellaneous comments}
@@ -253,18 +385,32 @@ We now turn to a different topic.
 \begin{frame}[fragile]
     \frametitle{Commas}
 
-    know when commas should appear inside or outside math environments:
-    \begin{quote}
-        Bad: \verb+Note that $a,b,$ and $c$ are nonnegative.+\\
-        \quad $\implies$ Note that $a,b,$ and $c$ are nonnegative.\\
-        Good: \verb+Note that $a$, $b$, and $c$ are nonnegative.+\\
-        \quad $\implies$ Note that $a$, $b$, and $c$ are nonnegative.
+    \begin{itemize}
+        \item know when commas should appear inside or outside math environments:
+            \begin{quote}
+                Bad: \verb+Note that $a,b,$ and $c$ are nonnegative.+\\
+                \quad $\implies$ Note that $a,b,$ and $c$ are nonnegative.\\
+                Good: \verb+Note that $a$, $b$, and $c$ are nonnegative.+\\
+                \quad $\implies$ Note that $a$, $b$, and $c$ are nonnegative.
 
-        Bad: \verb+We conclude that $x_1$, $x_2$, \dots, $x_n$ are decreasing.+\\
-        \quad $\implies$ We conclude that $x_1$, $x_2$, \dots, $x_n$ are decreasing.\\
-        Good: \verb+We conclude that $x_1, x_2, \ldots, x_n$ is decreasing.+\\
-        \quad $\implies$ We conclude that $x_1, x_2, \ldots, x_n$ is decreasing.
-    \end{quote}
+                Bad: \verb+We conclude that $x_1$, $x_2$, \dots, $x_n$ are decreasing.+\\
+                \quad $\implies$ We conclude that $x_1$, $x_2$, \dots, $x_n$ are decreasing.\\
+                Good: \verb+We conclude that $x_1, x_2, \ldots, x_n$ is decreasing.+\\
+                \quad $\implies$ We conclude that $x_1, x_2, \ldots, x_n$ is decreasing.
+            \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Quotes}
+
+    \begin{itemize}
+        \item use \verb+`'+ and \verb+``''+, instead of \verb+''+ and \verb+""+ to type quotes, so that the left and right quote symbols are rendered correctly
+            \begin{quote}
+                Bad: "This is a bad example containing 'quotes' in a sentence".\\
+                Good: ``The `quotes' in this sentence is good now.''
+            \end{quote}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -293,7 +439,17 @@ We now turn to a different topic.
 
 \end{frame}
 
+\begin{frame}
+    \frametitle{A bad example}
+
+    \begin{itemize}
+        \item if you are interested in reading a really bad example document where almost all the rules mentioned before are violated, I can send you my master's thesis and the corresponding \LaTeX\ source code
+    \end{itemize}
+
+\end{frame}
+
 \begin{frame}[plain,allowframebreaks]{Reference}
+    \small
     \bibliography{refs}
 \end{frame}
 \end{document}
