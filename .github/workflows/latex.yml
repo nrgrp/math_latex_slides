@@ -16,4 +16,4 @@ jobs:
       - uses: haozhu10015/.github/actions/latex@main
         with:
           # space-separated list of LaTeX files to compile
-          paper: article/article.tex slides_original/slides_original.tex
+          paper: article/article.tex slides/slides.tex
